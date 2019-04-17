@@ -1,16 +1,16 @@
 # Attogram Database
 
-**ALPHA RELEASE**
+_ALPHA RELEASE_
 
 PHP access to SQLite databases
 
-# Install
+## Install
 
 ```
 composer require attogram/database
 ```
 
-# Example
+## Example
 
 ```php
 <?php

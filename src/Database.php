@@ -15,7 +15,7 @@ use function touch;
 class Database
 {
     /** @var string */
-    const VERSION = '1.0.0-pre.1';
+    const VERSION = '1.0.0-pre.2';
 
     /** @var bool */
     private $connected = false;
@@ -56,10 +56,10 @@ class Database
         if (!in_array('sqlite', PDO::getAvailableDrivers())) {
             throw new Exception('sqlite driver not found');
         }
-        $createTables = false;
+        $doCreateTables = false;
         if (!file_exists($this->databaseFile)) {
             touch($this->databaseFile);
-            $createTables = true;
+            $doCreateTables = true;
         }
         if (!is_readable($this->databaseFile)) {
             throw new Exception('Database is not readable');
@@ -69,7 +69,7 @@ class Database
         }
         $this->pdo = new PDO('sqlite:'. $this->databaseFile);
         $this->connected = true;
-        if ($createTables) {
+        if ($doCreateTables) {
             $this->createTables();
         }
     }
