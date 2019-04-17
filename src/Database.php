@@ -15,7 +15,7 @@ use function touch;
 class Database
 {
     /** @var string */
-    const VERSION = '1.0.0-pre.2';
+    const VERSION = '1.0.0-pre.3';
 
     /** @var bool */
     private $connected = false;
