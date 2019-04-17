@@ -1,0 +1,16 @@
+{
+  "name": "attogram/database",
+  "description": "PHP access to SQLite database",
+  "type": "project",
+  "license": "MIT",
+  "homepage": "https://github.com/attogram/database",
+  "require": {
+    "php": "^7.0",
+    "ext-pdo": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Attogram\\Database\\": "src/"
+    }
+  }
+}

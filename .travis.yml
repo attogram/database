@@ -1,0 +1,18 @@
+# https://github.com/attogram/database
+# https://travis-ci.org/attogram/database
+language: php
+php:
+  - '7.0'
+  - '7.1'
+  - '7.2'
+  - '7.3'
+#  - nightly
+matrix:
+#  allow_failures:
+#    - php: nightly
+  fast_finish: true
+before_script:
+  - composer install
+script:
+  - if find . -name "*.php" -exec php -l {} 2>&1 \; | grep "error,"; then exit 1; fi;
+#  - phpunit tests

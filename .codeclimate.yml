@@ -1,0 +1,79 @@
+# https://github.com/attogram/database
+version: "2"
+checks:
+  argument-count:
+    config:
+      threshold: 4
+  complex-logic:
+    config:
+      threshold: 4
+  file-lines:
+    config:
+      threshold: 250
+  method-complexity:
+    config:
+      threshold: 5
+  method-count:
+    config:
+      threshold: 20
+  method-lines:
+    config:
+      threshold: 25
+  nested-control-flow:
+    config:
+      threshold: 4
+  return-statements:
+    config:
+      threshold: 4
+#  similar-code:
+#    config:
+#      threshold: # language-specific defaults. an override will affect all languages.
+#  identical-code:
+#    config:
+#      threshold: # language-specific defaults. an override will affect all languages.
+plugins:
+  fixme:
+    enabled: true
+  git-legal:
+    enabled: true
+  markdownlint:
+    enabled: true
+  phan:
+    enabled: true
+    config:
+      file_extensions: "php"
+#    checks:
+#      PhanUndeclaredClassMethod:
+#        enabled: false
+#      PhanUndeclaredClassProperty:
+#        enabled: false
+#      PhanUndeclaredTypeProperty:
+#        enabled: false
+#      PhanUndeclaredTypeThrowsType:
+#        enabled: false
+  phpcodesniffer:
+    enabled: true
+  phpmd:
+    enabled: true
+    checks:
+      CleanCode/StaticAccess:
+        enabled: false # allow PDO::*
+ #     Controversial/Superglobals:
+ #       enabled: false # allow $_POST access
+  shellcheck:
+    enabled: true
+  sonar-php:
+    enabled: true
+    checks:
+      php:S112:
+        enabled: false # allow generic throw Exception
+#      php:S125:
+#        enabled: false # allow commented code
+#      php:S131:
+#        enabled: false # allow switch without default
+#      php:S1192:
+#        enabled: false # allow duplicating literals
+#      php:S1848:
+#        enabled: false # allow  useless object instantiation
+  stylelint:
+    enabled: true
