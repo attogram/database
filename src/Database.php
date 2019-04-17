@@ -15,7 +15,7 @@ use function touch;
 class Database
 {
     /** @var string */
-    const VERSION = '1.0.0-pre.3';
+    const VERSION = '1.0.0-pre.4';
 
     /** @var bool */
     private $connected = false;
@@ -69,20 +69,9 @@ class Database
         }
         $this->pdo = new PDO('sqlite:'. $this->databaseFile);
         $this->connected = true;
-        if ($doCreateTables) {
-            $this->createTables();
+        if ($doCreateTables && !empty($this->createTables)) {
+            $this->raw($this->createTables);
         }
-    }
-
-    /**
-     * @throws Exception
-     */
-    private function createTables()
-    {
-        if (empty($this->createTables)) {
-            throw new Exception('Create Tables SQL not set');
-        }
-        $this->raw($this->createTables);
     }
 
     /**

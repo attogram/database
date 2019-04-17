@@ -1,6 +1,6 @@
 # Attogram Database
 
-_ALPHA RELEASE_
+ALPHA RELEASE
 
 PHP access to SQLite databases
 
