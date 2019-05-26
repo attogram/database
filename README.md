@@ -4,6 +4,7 @@ SQLite database access for PHP 7.
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/473e68db98ac442429c1/maintainability)](https://codeclimate.com/github/attogram/database/maintainability)
 [![Build Status](https://travis-ci.org/attogram/database.svg?branch=master)](https://travis-ci.org/attogram/database)
+[![Latest Stable Version](https://poser.pugx.org/attogram/database/v/stable)](https://packagist.org/packages/attogram/database)
 
 ## Install
 
