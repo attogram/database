@@ -30,4 +30,3 @@ try {
 } catch (Throwable $error) {
     print 'ERROR: ' . $error->getMessage();
 }
-

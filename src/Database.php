@@ -19,7 +19,7 @@ use function touch;
 class Database
 {
     /** @var string */
-    const VERSION = '1.1.0';
+    const VERSION = '1.1.1';
 
     /** @var bool */
     private $connected = false;
