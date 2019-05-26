@@ -1,6 +1,6 @@
 {
   "name": "attogram/database",
-  "description": "PHP access to SQLite database",
+  "description": "PHP access to SQLite databases.",
   "type": "project",
   "license": "MIT",
   "homepage": "https://github.com/attogram/database",

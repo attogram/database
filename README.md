@@ -1,8 +1,8 @@
 # Attogram Database
 
-ALPHA RELEASE
+_BETA RELEASE_
 
-PHP access to SQLite databases
+PHP access to SQLite databases.
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/473e68db98ac442429c1/maintainability)](https://codeclimate.com/github/attogram/database/maintainability)
 [![Build Status](https://travis-ci.org/attogram/database.svg?branch=master)](https://travis-ci.org/attogram/database)
@@ -13,10 +13,10 @@ PHP access to SQLite databases
 composer require attogram/database
 ```
 
-## Example
+## Examples
 
+one table:
 ```php
-<?php
 declare(strict_types = 1);
 
 use Attogram\Database\Database;
@@ -24,14 +24,43 @@ use Attogram\Database\Database;
 require '../vendor/autoload.php';
 
 $database = new Database();
+$database->setDatabaseFile('./test.one.sqlite');
+$database->setCreateTables("CREATE TABLE 'one' ('foo' TEXT)");
 
-$database->setDatabaseFile('./test.sqlite');
+try {
+    $database->raw("INSERT INTO one ('foo') VALUES (CURRENT_TIMESTAMP)");
+    $arrayResults = $database->query("SELECT * FROM 'one'");
+    print_r($arrayResults);
+} catch (Throwable $error) {
+    print 'ERROR: ' . $error->getMessage();
+}
+```
 
-$database->setCreateTables("CREATE TABLE 'foo' ('bar' TEXT)");
+two tables:
+```php
+declare(strict_types = 1);
 
-$database->raw("INSERT INTO foo ('bar') VALUES ('baz')");
+use Attogram\Database\Database;
 
-$arrayResults = $database->query("SELECT * FROM 'foo'");
+require '../vendor/autoload.php';
 
-print_r($arrayResults);
+$database = new Database();
+$database->setDatabaseFile('./test.two.sqlite');
+
+$tables = [
+    "CREATE TABLE 'one' ('foo' TEXT)",
+    "CREATE TABLE 'two' ('bar' TEXT)",
+];
+$database->setCreateTables($tables);
+
+try {
+    $database->raw("INSERT INTO one ('foo') VALUES (CURRENT_TIMESTAMP)");
+    $database->raw("INSERT INTO two ('bar') VALUES (CURRENT_TIMESTAMP)");
+    $arrayResults = $database->query("SELECT * FROM 'one'");
+    print_r($arrayResults);
+    $arrayResults = $database->query("SELECT * FROM 'two'");
+    print_r($arrayResults);
+} catch (Throwable $error) {
+    print 'ERROR: ' . $error->getMessage();
+}
 ```

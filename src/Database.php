@@ -1,4 +1,8 @@
 <?php
+/**
+ * Attogram Database
+ * @see https://github.com/attogram/database
+ */
 declare(strict_types = 1);
 
 namespace Attogram\Database;
@@ -15,16 +19,16 @@ use function touch;
 class Database
 {
     /** @var string */
-    const VERSION = '1.0.0-pre.4';
+    const VERSION = '1.1.0';
 
     /** @var bool */
     private $connected = false;
 
-    /** @var string */
-    private $createTables;
+    /** @var array */
+    private $createTables = [];
 
     /** @var string */
-    private $databaseFile;
+    private $databaseFile = 'database.sqlite';
 
     /** @var PDO */
     private $pdo;
@@ -38,11 +42,20 @@ class Database
     }
 
     /**
-     * @param string $createTables
+     * @param string|array $createTables
      */
-    public function setCreateTables(string $createTables)
+    public function setCreateTables($createTables)
     {
-        $this->createTables = $createTables;
+        if (empty($createTables)) {
+            return;
+        }
+        if (is_string($createTables)) {
+            $this->createTables[] = $createTables;
+            return;
+        }
+        if (is_array($createTables)) {
+            $this->createTables = array_merge($this->createTables, $createTables);
+        }
     }
 
     /**
@@ -70,19 +83,29 @@ class Database
         $this->pdo = new PDO('sqlite:'. $this->databaseFile);
         $this->connected = true;
         if ($doCreateTables && !empty($this->createTables)) {
-            $this->raw($this->createTables);
+            $this->createTables();
         }
     }
 
     /**
-     * SQL query, returns results in an array
+     * @throws Exception
+     */
+    private function createTables()
+    {
+        foreach ($this->createTables as $table) {
+            $this->raw($table);
+        }
+    }
+
+    /**
+     * SQL query, return results as an array
      *
      * @param string $sql
      * @param array $bind
      * @return array
      * @throws Exception
      */
-    public function query(string $sql, array $bind = []) :array
+    public function query(string $sql, array $bind = []): array
     {
         if (!$this->connected) {
             $this->connect();
@@ -107,9 +130,10 @@ class Database
      *
      * @param string $sql
      * @param array $bind
+     * @return bool
      * @throws Exception
      */
-    public function raw(string $sql, array $bind = [])
+    public function raw(string $sql, array $bind = []): bool
     {
         if (!$this->connected) {
             $this->connect();
@@ -121,7 +145,11 @@ class Database
         $result = $statement->execute($bind);
         if (!$result && ($this->pdo->errorCode() != '00000')) {
             $this->pdoFail('raw: execute statement failed');
+
+            return false;
         }
+
+        return true;
     }
 
     /**
