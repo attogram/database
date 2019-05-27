@@ -1,6 +1,6 @@
 # Attogram Database
 
-SQLite database access for PHP 7.
+SQLite database access for PHP 7.  Small, one class, and highly opinionated.
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/473e68db98ac442429c1/maintainability)](https://codeclimate.com/github/attogram/database/maintainability)
 [![Build Status](https://travis-ci.org/attogram/database.svg?branch=master)](https://travis-ci.org/attogram/database)
