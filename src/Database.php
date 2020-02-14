@@ -1,6 +1,8 @@
 <?php
 /**
  * Attogram Database
+ *
+ * @license MIT
  * @see https://github.com/attogram/database
  */
 declare(strict_types = 1);
@@ -12,6 +14,8 @@ use PDO;
 
 use function file_exists;
 use function in_array;
+use function is_readable;
+use function is_string;
 use function is_writable;
 use function print_r;
 use function touch;
@@ -19,7 +23,7 @@ use function touch;
 class Database
 {
     /** @var string */
-    const VERSION = '1.1.1';
+    const VERSION = '1.1.2';
 
     /** @var bool */
     private $connected = false;
